@@ -2,7 +2,7 @@ from fastmcp import FastMCP
 
 # Create the FastMCP server
 mcp = FastMCP("MathToolServer",
-             port=8200)
+             port=8000)
 
 @mcp.tool()
 def add(a: int, b: int) -> int:

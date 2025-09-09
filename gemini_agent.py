@@ -15,8 +15,15 @@ model = GoogleModel("gemini-2.0-flash", provider=provider)
 
 # Choose a toolset transport:
 # For subprocess stdio:
+# stdio_tools = MCPServerStdio(
+#     "python", args=["mcp_server.py"], timeout=10
+# )
+
 stdio_tools = MCPServerStdio(
-    "python", args=["mcp_server.py"], timeout=10
+    r"C:\Users\PC\Desktop\lunafire_x\lisa_pa_mcp\.venv\Scripts\python.exe",  # Full path to Python in your venv
+    args=[r"C:\Users\PC\Desktop\lunafire_x\lisa_pa_mcp\basic_mcp.py"], 
+    timeout=10,
+    cwd=r"C:\Users\PC\Desktop\research\pydantic-framework"  # Working directory should be a folder, not a .py file
 )
 
 # Or for HTTP/SSE:
@@ -30,14 +37,11 @@ agent = Agent(
 
 async def main():
     async with agent:
-        res1 = await agent.run("Add 5 and 7")
-        print("Add →", res1.output)
-
-        res2 = await agent.run("Subtract 3 from 15")
-        print("Subtract →", res2.output)
-
-        res3 = await agent.run("List odd numbers up to 9")
-        print("Odd Numbers →", res3.output)
+        prompt = '''
+            what is 50*300
+        '''
+        res1 = await agent.run(prompt)
+        print(res1.output)
 
 import asyncio
 asyncio.run(main())
